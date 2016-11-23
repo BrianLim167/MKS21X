@@ -1,4 +1,10 @@
 git clone
+    copies from git repo to the local computer
 git pull
+    updates local files
+git add
+    begin tracking certain files
 git commit
+    locks in a new version using tracked files
 git push
+    updates git repo with local files
