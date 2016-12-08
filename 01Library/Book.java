@@ -3,9 +3,9 @@ public class Book{
 
     public Book(){
     }
-    public Book(String title, String author, String ISBN){
-	setTitle(title);
+    public Book(String author, String title, String ISBN){
 	setAuthor(author);
+	setTitle(title);
 	setISBN(ISBN);
     }
 

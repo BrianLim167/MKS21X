@@ -8,5 +8,13 @@ public class Driver{
 	System.out.println(new Barcode("00042"));
 	System.out.println(new Barcode("00167"));
 	System.out.println(new Barcode("10101"));
+	//System.out.println(new Barcode(""));
+	//System.out.println(new Barcode("23"));
+	//System.out.println(new Barcode("9999999"));
+	//System.out.println(new Barcode("ABCDE"));
+	//System.out.println(new Barcode("0000;"));
+	//System.out.println(new Barcode("q"));
+	System.out.println(a.compareTo(a));
+	System.out.println(a.compareTo(new Barcode("02345")));
     }
 }
