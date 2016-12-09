@@ -1,7 +1,6 @@
 public class Barcode implements Comparable<Barcode>{
 // instance variables
    private String _zip;
-   private int _checkDigit;
 
 // constructors
 //precondtion: _zip.length() = 5 and zip contains only digits.
@@ -18,22 +17,13 @@ public class Barcode implements Comparable<Barcode>{
 	  }
       }
       _zip = zip;
-      _checkDigit = checkSum();
   }
-
-// postcondition: Creates a copy of a bar code.
-  public Barcode clone(){
-      Barcode copy = new Barcode(_zip);
-      copy._checkDigit = _checkDigit;
-      return copy;
-  }
-
 
 // postcondition: computes and returns the check sum for _zip
-  private int checkSum(){
+  private static int checkSum(String zip){
       int sum=0;
-      for (int index=0 ; index<_zip.length() ; index++){
-	  sum += Integer.parseInt(_zip.substring(index,index+1));
+      for (int index=0 ; index<zip.length() ; index++){
+	  sum += Integer.parseInt(zip.substring(index,index+1));
       }
       return sum%10;
 }
@@ -42,7 +32,7 @@ public class Barcode implements Comparable<Barcode>{
 //ex. "084518  |||:::|::|::|::|:|:|::::|||::|:|"      
   public String toString(){
       String ans="";
-      String code = _zip + _checkDigit;
+      String code = _zip + checkSum(_zip);
       ans += code;
       ans += "  |";
       for (int index=0 ; index<code.length() ; index++){
@@ -73,10 +63,9 @@ public class Barcode implements Comparable<Barcode>{
       return ans;
   }
 
-
 // postcondition: compares the zip + checkdigit, in numerical order. 
     public int compareTo(Barcode other){
-	String tCode = _zip + _checkDigit;
+	String tCode = _zip + checkSum(_zip);
 	int tSum=0;
 	for (int index=0 ; index<tCode.length() ; index++){
 	    tSum += Integer.parseInt(tCode.substring(index,index+1))
@@ -91,5 +80,11 @@ public class Barcode implements Comparable<Barcode>{
 	return tSum-oSum;
     }
     
+    public static String toZip(String code){
+	if (code.length != 32){
+	    throw new IllegalArgumentException("code must be 32 chars long");
+	    return "zip";
+	}
+    }
 }
 
