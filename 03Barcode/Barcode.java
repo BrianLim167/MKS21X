@@ -32,11 +32,43 @@ public class Barcode implements Comparable<Barcode>{
 //ex. "084518  |||:::|::|::|::|:|:|::::|||::|:|"      
   public String toString(){
       String ans="";
-      String code = _zip + checkSum(_zip);
-      ans += code;
-      ans += "  |";
-      for (int index=0 ; index<code.length() ; index++){
-	  char dig = code.charAt(index); 
+      ans += _zip;
+      ans += checkSum(_zip);
+      ans += "  ";
+      ans += toCode(_zip);
+      return ans;
+  }
+
+// postcondition: compares the zip + checkdigit, in numerical order. 
+    public int compareTo(Barcode other){
+	String tCode = _zip + checkSum(_zip);
+	int tSum=0;
+	for (int index=0 ; index<tCode.length() ; index++){
+	    tSum += Integer.parseInt(tCode.substring(index,index+1))
+		*Math.pow(10,tCode.length()-index-1);
+	}
+	String oCode = other._zip + other._checkDigit;
+	int oSum=0;
+	for (int index=0 ; index<oCode.length() ; index++){
+	    oSum += Integer.parseInt(oCode.substring(index,index+1))
+		*Math.pow(10,oCode.length()-index-1);
+	}
+	return tSum-oSum;
+    }
+
+    public static String toCode(String zip){
+	if (zip.length() != 5){
+	  throw new IllegalArgumentException("zip must have a length of 5");
+        }
+        for (int index=0 ; index<zip.length() ; index++){
+	  if(!Character.isDigit(zip.charAt(index))){
+	      throw new IllegalArgumentException("zip must contain only digits");
+	  }
+        }
+	String num = zip + checkSum(zip);
+	ans += "|";
+	for (int index=0 ; index<num.length() ; index++){
+	  char dig = num.charAt(index); 
 	  if (dig=='0'){
 	      ans += "||:::";
 	  }else if (dig=='1'){
@@ -61,24 +93,8 @@ public class Barcode implements Comparable<Barcode>{
       }
       ans += "|";
       return ans;
-  }
-
-// postcondition: compares the zip + checkdigit, in numerical order. 
-    public int compareTo(Barcode other){
-	String tCode = _zip + checkSum(_zip);
-	int tSum=0;
-	for (int index=0 ; index<tCode.length() ; index++){
-	    tSum += Integer.parseInt(tCode.substring(index,index+1))
-		*Math.pow(10,tCode.length()-index-1);
-	}
-	String oCode = other._zip + other._checkDigit;
-	int oSum=0;
-	for (int index=0 ; index<oCode.length() ; index++){
-	    oSum += Integer.parseInt(oCode.substring(index,index+1))
-		*Math.pow(10,oCode.length()-index-1);
-	}
-	return tSum-oSum;
     }
+	
     
     public static String toZip(String code){
 	if (code.length != 32){
