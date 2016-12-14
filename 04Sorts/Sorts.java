@@ -27,4 +27,15 @@ public class Sorts{
 	data[sI] = temp;
     }
 
+    public static void insertionSort(int[]data){
+	for (int ind=1 ; ind<data.length ; ind++){
+	    int num = data[ind];
+	    int sind = ind;
+	    while (data[sind]<data[sind-1]){
+		data[sind] = data[sind-1];
+		sind--;
+	    }
+	    data[sind] = num;
+	}
+    }
 }
